@@ -23,8 +23,13 @@ for port in ports:
     result = s.connect_ex((target, port))
 
     if result == 0:
-        print(f"[+] Port {port} is OPEN")
-        open_ports.append(port)
+     try:
+        service = socket.getservbyport(port)
+     except:
+        service = "Unknown"
+
+    print(f"[+] Port {port} ({service.upper()}) is OPEN")
+    open_ports.append(port)
 
     s.close()
 
